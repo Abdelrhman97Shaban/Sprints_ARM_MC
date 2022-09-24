@@ -5,7 +5,7 @@
  *         File:  Bit_Math.h
  *       Module:  -
  *
- *  Description:  Contation Macros to make operation on bits     
+ *  Description:  <Write File DESCRIPTION here>     
  *  
  *********************************************************************************************************************/
 #ifndef BIT_MATH_H
@@ -19,11 +19,11 @@
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
-#define    SET_BIT(REG,BIT)				(REG |=  (1<<BIT))
-#define    CLR_BIT(REG,BIT)				(REG &= ~(1<<BIT))
-#define    TOG_BIT(REG,BIT)				(REG ^=  (1<<BIT))
-#define    BIT_IS_CLR(REG,BIT)		(!(REG & (1<<BIT)))
-#define    BIT_IS_SET(REG,BIT) 		( REG & (1<<BIT))
+#define SET_BIT(REG,BIT) 	(REG |=  (1 << BIT))
+#define CLR_BIT(REG,BIT) 	(REG &= ~(1 << BIT)) 
+#define TOG_BIT(REG,BIT) 	(REG ^=  (1 << BIT)) 
+#define READ_BIT(REG,BIT) 	((REG &  (1<<BIT)) >> BIT)
+ 
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
  *********************************************************************************************************************/
