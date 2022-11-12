@@ -1,113 +1,39 @@
-/**********************************************************************************************************************
-
- *  FILE DESCRIPTION
- *  -------------------------------------------------------------------------------------------------------------------
- *         File:  Dio_Private.h
- *       Module:  -
- *
- *  Description:  <Write File DESCRIPTION here>     
- *  
- *********************************************************************************************************************/
 #ifndef DIO_PRIVATE_H
 #define DIO_PRIVATE_H
 
-/**********************************************************************************************************************
- * INCLUDES
- *********************************************************************************************************************/
-#include "Std_Types.h" 
 
-/**********************************************************************************************************************
- *  GLOBAL CONSTANT MACROS
- *********************************************************************************************************************/
+#define GPIOA_Base_Address        0x40010800            // define the boundary address of GPIO port A
+#define GPIOB_Base_Address        0x40010C00            // define the boundary address of GPIO port B
+#define GPIOC_Base_Address        0x40011000            // define the boundary address of GPIO port C
 
-#define CRGCGPIO_PORTA		0x01
-#define CRGCGPIO_PORTB 		0x02
-#define CRGCGPIO_PORTC 		0X04
-#define CRGCGPIO_PORTD 		0X08
-#define CRGCGPIO_PORTE 		0x10
-#define CRGCGPIO_PORTF 		0X20
+        /*       REGISTERS ADDRESSES FOR Port A        */
 
+#define GPIOA_CRL                 *((u32*)(GPIOA_Base_Address + 0x00))
+#define GPIOA_CRH                 *((u32*)(GPIOA_Base_Address + 0x04))
+#define GPIOA_IDR                 *((u32*)(GPIOA_Base_Address + 0x08))
+#define GPIOA_ODR                 *((u32*)(GPIOA_Base_Address + 0x0c))
+#define GPIOA_BSR                 *((u32*)(GPIOA_Base_Address + 0x10))
+#define GPIOA_BRR                 *((u32*)(GPIOA_Base_Address + 0x14))
+#define GPIOA_LCK                 *((u32*)(GPIOA_Base_Address + 0x18))
 
-#define LOW					0
-#define HIGH				1
+        /*       REGISTERS ADDRESSES FOR Port B        */
 
-#define INPUT 				0
-#define OUTPUT				1
+#define GPIOB_CRL                 *((u32*)(GPIOB_Base_Address + 0x00))
+#define GPIOB_CRH                 *((u32*)(GPIOB_Base_Address + 0x04))
+#define GPIOB_IDR                 *((u32*)(GPIOB_Base_Address + 0x08))
+#define GPIOB_ODR                 *((u32*)(GPIOB_Base_Address + 0x0c))
+#define GPIOB_BSR                 *((u32*)(GPIOB_Base_Address + 0x10))
+#define GPIOB_BRR                 *((u32*)(GPIOB_Base_Address + 0x14))
+#define GPIOB_LCK                 *((u32*)(GPIOB_Base_Address + 0x18))
 
-#define PULL_UP				0
-#define PULL_DOWN			1
-#define OPEN_DRAIN			2 
+        /*       REGISTERS ADDRESSES FOR Port C        */
 
-#define CURRENT_2MA			0
-#define CURRENT_4MA			1
-#define CURRENT_8MA			2
+#define GPIOC_CRL                 *((u32*)(GPIOC_Base_Address + 0x00))
+#define GPIOC_CRH                 *((u32*)(GPIOC_Base_Address + 0x04))
+#define GPIOC_IDR                 *((u32*)(GPIOC_Base_Address + 0x08))
+#define GPIOC_ODR                 *((u32*)(GPIOC_Base_Address + 0x0c))
+#define GPIOC_BSR                 *((u32*)(GPIOC_Base_Address + 0x10))
+#define GPIOC_BRR                 *((u32*)(GPIOC_Base_Address + 0x14))
+#define GPIOC_LCK                 *((u32*)(GPIOC_Base_Address + 0x18))
 
-
-
-/**********************************************************************************************************************
- *  GLOBAL FUNCTION MACROS
- *********************************************************************************************************************/
-
-
-/**********************************************************************************************************************
- *  GLOBAL DATA TYPES AND STRUCTURES
- *********************************************************************************************************************/
-typedef enum
-{
-	PIN0,
-	PIN1,
-	PIN2,
-	PIN3,
-	PIN4,
-	PIN5,
-	PIN6,
-	PIN7 
-}DIO_Pin;
-
-
-typedef enum
-{
-	PortA,
-	PortB,
-	PortC,
-	PortD,
-	PortE,
-	PortF
-}DIO_Port;
-
-typedef struct
-{
-	DIO_Port 	Port; 
-	DIO_Pin		Pin_Number; 
-	uint8 		Pin_Level; 
-}DIO_PinConfig; 
-
-typedef struct
-{
-	uint8 					Port_Clock; 
-	uint8 					Port_Mode; 
-	uint8	 					Commit_Pins; 
-	uint8	  				Port_Ctrl; 
-	uint8	  				Port_Dir; 
-}DIO_PortConfig; 
-
-
-
-
-
-
-/**********************************************************************************************************************
- *  GLOBAL DATA PROTOTYPES
- *********************************************************************************************************************/
-
- 
-/**********************************************************************************************************************
- *  GLOBAL FUNCTION PROTOTYPES
- *********************************************************************************************************************/
-
- 
-#endif  /* DIO_PRIVATE_H */
-
-/**********************************************************************************************************************
- *  END OF FILE: Dio_Private.h
- *********************************************************************************************************************/
+#endif

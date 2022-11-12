@@ -1,28 +1,50 @@
-#include "Dio_Config.h" 
-#include "GPTM_Config.h"
-#include "NVIC_Config.h"
+#include "STD_TYPES.h"
+#include "BIT_MATH.h"
+#include "DIO_interface.h"
+#include "RCC_interface.h"
+#include "STK_interface.h"
 
-int main (void) 
+
+
+#define ON_TIME			 	1       /* set on time	*/ 
+#define OFF_TIME		 	3				/* SET off time */
+
+
+
+void LOC_voidToggleLed(void);
+
+int main(void)
 {
-	DIO_PortConfig Port_F; 
-  Port_F.Port_Clock   = CRGCGPIO_PORTF;
-	Port_F.Commit_Pins  = 0xff; 
-	Port_F.Port_Ctrl 		= 0;
-	Port_F.Port_Dir			= 0x0f; 
-	Port_F.Port_Mode 		= 0; 
-	Dio_PortInit(&Port_F);
-  GPTM_Delay(TIME_ON);	
+	RCC_voidInitSysClock();
+	RCC_voidEnableClock(RCC_APB2,2);
 	
+	MGPIO_VidSetPinDirection(GPIOA,PIN0,OUTPUT_SPEED_10MHZ_PP);
+	MGPIO_VidSetPinValue(GPIOA,PIN0,LOW);
+	
+	MSTK_voidInit();
+	MSTK_voidSetIntervalSingle(ON_TIME*1000000, LOC_voidToggleLed);
+	
+	while(1)
+	{
+		
+	}
 }
 
-	
-void TIMER_Handler()
+
+
+void LOC_voidToggleLed()
 {
-	 if (TIMER0_RIS_REG & 0x01)
-	 {
-		 TOG_BIT(GPIO_PORTF_DATA_REG,2);
-		 GPTM_Delay(TIME_OFF);	
-		 TIMER0_ICR_REG = 0x1; 
-	 }
+	static u8 LOC_u8PinState = 0;
+	LOC_u8PinState = MGPIO_u8GetPinValue(GPIOA, PIN0);
+	if ( LOC_u8PinState == 0)
+	{
+		MGPIO_VidSetPinValue(GPIOA,PIN0,HIGH);
+		MSTK_voidSetIntervalSingle(ON_TIME*1000000, LOC_voidToggleLed);
+	}
+	else
+	{
+		MGPIO_VidSetPinValue(GPIOA,PIN0,LOW);
+		MSTK_voidSetIntervalSingle(OFF_TIME*1000000, LOC_voidToggleLed);
+	}
 }
 
